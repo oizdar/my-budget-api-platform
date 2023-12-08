@@ -1,6 +1,5 @@
 {
     "type": "project",
-    "license": "MIT",
     "require": {
         "php": ">=8.2",
         "ext-ctype": "*",
@@ -54,12 +53,12 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "MyBudget\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/"
+            "MyBudget\\Tests\\": "tests/"
         }
     },
     "replace": {
