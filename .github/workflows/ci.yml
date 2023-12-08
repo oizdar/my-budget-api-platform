@@ -47,6 +47,9 @@ jobs:
       -
         name: Check PWA reachability
         run: "curl -vk -o /dev/null -H 'Accept: text/html' https://localhost"
+      - 
+        name: PHP CS Fixer
+        run: docker compose exec -T php vendor/bin/php-cs-fixer fix --diff --dry-run --verbose
       -  
         name: PHPStan
         run: docker compose exec -T php vendor/bin/phpstan analyze
