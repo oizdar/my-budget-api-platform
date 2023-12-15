@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="https://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+
+<doctrine-mapping>
+    <entity name="Budget\Transaction">
+        <id name="id" type="integer">
+            <generator strategy="AUTO" />
+        </id>
+
+        <field name="name" type="string" />
+        <field name="description" type="string" />
+
+        <!--       ?? <embedded name="type" class="MyBudget\Budget\Domain\Enum\TransactionType" />-->
+    </entity>
+</doctrine-mapping>

@@ -2,6 +2,7 @@
 
 namespace MyBudget\Budget\Domain\Model;
 
+use DateTimeImmutable;
 use MyBudget\Budget\Domain\Enums\BudgetGoal;
 
 class Budget
@@ -9,11 +10,11 @@ class Budget
     public function __construct(
         private readonly int $id,
         /** @var PlanConfiguration[] */
-        private array $planConfiguration,
+        private array $planConfigurations,
         private BudgetGoal $budgetGoal,
         private string $description,
-        private \DateTimeImmutable $dateTo,
-        private \DateTimeImmutable $dateFrom,
+        private DateTimeImmutable $dateTo,
+        private DateTimeImmutable $dateFrom,
         /** @var Transaction[] */
         private array $transactions,
     ) {
@@ -29,12 +30,12 @@ class Budget
         return $this->description;
     }
 
-    public function getDateFrom(): \DateTimeImmutable
+    public function getDateFrom(): DateTimeImmutable
     {
         return $this->dateFrom;
     }
 
-    public function getDateTo(): \DateTimeImmutable
+    public function getDateTo(): DateTimeImmutable
     {
         return $this->dateTo;
     }
@@ -44,9 +45,9 @@ class Budget
         return $this->transactions;
     }
 
-    public function getPlanConfiguration(): array
+    public function getPlanConfigurations(): array
     {
-        return $this->planConfiguration;
+        return $this->planConfigurations;
     }
 
     public function getBudgetGoal(): BudgetGoal
