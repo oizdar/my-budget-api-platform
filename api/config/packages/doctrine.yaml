@@ -19,8 +19,7 @@ doctrine:
                 is_bundle: false
                 type: xml
                 dir: '%kernel.project_dir%/src/Budget/Infrastructure/Doctrine/Mapping'
-                prefix: 'Budget\Entity'
-                alias: Budget
+                prefix: 'MyBudget\Budget\Domain\Model'
 
 when@test:
     doctrine:
