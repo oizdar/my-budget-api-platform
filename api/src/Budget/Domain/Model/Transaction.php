@@ -2,25 +2,38 @@
 
 namespace MyBudget\Budget\Domain\Model;
 
+use DateTimeImmutable;
+use Money\Currency;
 use Money\Money;
+use MyBudget\Budget\Domain\Enum\TransactionType;
 
 class Transaction
 {
     public function __construct(
-        private readonly int $id,
-        private readonly Category $category,
-        private readonly string $comment,
-        private readonly \DateTimeImmutable $date,
+        private readonly TransactionType $type,
         private readonly Money $amount,
+        private readonly DateTimeImmutable $date,
+        private readonly ?Category $category = null,
+        private readonly string $comment = '',
     ) {
     }
-
-    public function getId(): int
+    public function getDate(): DateTimeImmutable
     {
-        return $this->id;
+        return $this->date;
     }
 
-    public function getCategory(): Category
+    public function getAmount(): Money
+    {
+        return $this->amount;
+    }
+
+
+    public function getType(): TransactionType
+    {
+        return $this->type;
+    }
+
+    public function getCategory(): ?Category
     {
         return $this->category;
     }
@@ -30,13 +43,8 @@ class Transaction
         return $this->comment;
     }
 
-    public function getDate(): \DateTimeImmutable
+    public function hasExpectedCurrency(Currency $currency): bool
     {
-        return $this->date;
-    }
-
-    public function getAmount(): Money
-    {
-        return $this->amount;
+        return $this->amount->getCurrency()->equals($currency);
     }
 }

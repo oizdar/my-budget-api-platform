@@ -7,37 +7,18 @@ use Money\Money;
 class PlanConfiguration
 {
     public function __construct(
-        private readonly int $id,
-        private Category $category,
-        private string $remarks,
-        private Money $plannedAmount,
+        /** @var PlanConfigurationItem[] */
+        private array $planConfigurationItems,
     ) {
     }
 
-    public function update(Category $category, string $remarks, Money $plannedAmount): void
+    public function addPlanItem(PlanConfigurationItem $planConfigurationItem): void
     {
-        $this->category = $category;
-        $this->remarks = $remarks;
-        $this->plannedAmount = $plannedAmount;
+        $this->planConfigurationItems[] = $planConfigurationItem;
     }
 
-    public function getId(): int
+    public function getPlanConfigurationItems(): array
     {
-        return $this->id;
-    }
-
-    public function getCategory(): Category
-    {
-        return $this->category;
-    }
-
-    public function getRemarks(): string
-    {
-        return $this->remarks;
-    }
-
-    public function getPlannedAmount(): Money
-    {
-        return $this->plannedAmount;
+        return $this->planConfigurationItems;
     }
 }

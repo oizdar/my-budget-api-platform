@@ -8,8 +8,7 @@ class Category
 {
     public function __construct(
         private string $name,
-        private string $description,
-        private TransactionType $type,
+        private string $description = '',
     ) {
     }
 
@@ -21,10 +20,5 @@ class Category
     public function getDescription(): string
     {
         return $this->description;
-    }
-
-    public function getType(): TransactionType
-    {
-        return $this->type;
     }
 }
