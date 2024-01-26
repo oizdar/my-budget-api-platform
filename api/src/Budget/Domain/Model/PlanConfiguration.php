@@ -2,8 +2,6 @@
 
 namespace MyBudget\Budget\Domain\Model;
 
-use Money\Money;
-
 class PlanConfiguration
 {
     public function __construct(
@@ -17,6 +15,9 @@ class PlanConfiguration
         $this->planConfigurationItems[] = $planConfigurationItem;
     }
 
+    /**
+     * @return PlanConfigurationItem[]
+     */
     public function getPlanConfigurationItems(): array
     {
         return $this->planConfigurationItems;

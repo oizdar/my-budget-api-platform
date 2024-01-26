@@ -17,6 +17,7 @@ class Transaction
         private readonly string $comment = '',
     ) {
     }
+
     public function getDate(): DateTimeImmutable
     {
         return $this->date;
@@ -26,7 +27,6 @@ class Transaction
     {
         return $this->amount;
     }
-
 
     public function getType(): TransactionType
     {

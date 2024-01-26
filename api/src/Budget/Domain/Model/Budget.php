@@ -16,15 +16,15 @@ class Budget
     public const string DEFAULT_CURRENCY = self::CURRENCY_PLN;
 
     public function __construct(
-        private PlanConfiguration $planConfigurations,
-        private string $description,
+        // private PlanConfiguration $planConfigurations,
+        // private string $description,
         private DateTimeImmutable $dateFrom,
         private DateTimeImmutable $dateTo,
         /** @var Transaction[] */
         private array $transactions = [],
         private Currency $currency = new Currency(self::DEFAULT_CURRENCY)
     ) {
-        if($dateFrom > $dateTo) {
+        if ($dateFrom > $dateTo) {
             throw new InvalidArgumentException();
         }
     }
@@ -39,13 +39,13 @@ class Budget
         return $this->getAmount(TransactionType::EXPENSE);
     }
 
-    private function getAmount(TransactionType $transactionType, ?Category $category = null): Money
+    private function getAmount(TransactionType $transactionType, Category $category = null): Money
     {
         $incomesAmount = new Money(0, $this->currency);
-        foreach($this->transactions as $transaction) {
-            if(
+        foreach ($this->transactions as $transaction) {
+            if (
                 $transaction->getType() == $transactionType
-                && ($category === null || $category === $transaction->getCategory())
+                && (null === $category || $category === $transaction->getCategory())
             ) {
                 $incomesAmount = $incomesAmount->add($transaction->getAmount());
             }
@@ -56,15 +56,14 @@ class Budget
 
     public function addTransaction(Transaction $transaction): void
     {
-        if($transaction->getDate() < $this->dateFrom || $transaction->getDate() > $this->dateTo) {
+        if ($transaction->getDate() < $this->dateFrom || $transaction->getDate() > $this->dateTo) {
             throw new TransactionOutsideBudgetRange();
         }
 
-        if(!$transaction->hasExpectedCurrency($this->currency)) {
+        if (!$transaction->hasExpectedCurrency($this->currency)) {
             throw new InvalidTransactionCurrency();
         }
 
         $this->transactions[] = $transaction;
     }
-
 }

@@ -2,8 +2,6 @@
 
 namespace MyBudget\Budget\Domain\Model;
 
-use MyBudget\Budget\Domain\Enum\TransactionType;
-
 class Category
 {
     public function __construct(

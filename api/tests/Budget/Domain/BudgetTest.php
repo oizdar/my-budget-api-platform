@@ -8,7 +8,6 @@ use Money\Money;
 use MyBudget\Budget\Domain\Enum\TransactionType;
 use MyBudget\Budget\Domain\Model\Budget;
 use MyBudget\Budget\Domain\Model\Category;
-use MyBudget\Budget\Domain\Model\PlanConfiguration;
 use MyBudget\Budget\Domain\Model\Transaction;
 use PHPUnit\Framework\TestCase;
 
@@ -17,8 +16,8 @@ class BudgetTest extends TestCase
     public function testEmptyBudget(): void
     {
         $budget = new Budget(
-            new PlanConfiguration([]),
-            'Empty budget',
+            // new PlanConfiguration([]),
+            // 'Empty budget',
             new DateTimeImmutable('2021-01-01'),
             new DateTimeImmutable('2021-01-31'),
             []
@@ -26,14 +25,13 @@ class BudgetTest extends TestCase
 
         $this->assertEquals(new Money(0, new Currency(Budget::DEFAULT_CURRENCY)), $budget->getExpensesAmount());
         $this->assertEquals(new Money(0, new Currency(Budget::DEFAULT_CURRENCY)), $budget->getIncomesAmount());
-
     }
 
     public function testBudgetAddTransactions(): void
     {
         $budget = new Budget(
-            new PlanConfiguration([]),
-            'Empty budget',
+            // new PlanConfiguration([]),
+            // 'Empty budget',
             new DateTimeImmutable('2021-01-01'),
             new DateTimeImmutable('2021-01-31'),
             []
@@ -75,7 +73,5 @@ class BudgetTest extends TestCase
 
         $this->assertEquals(new Money(1100, new Currency(Budget::DEFAULT_CURRENCY)), $budget->getExpensesAmount());
         $this->assertEquals(new Money(2200, new Currency(Budget::DEFAULT_CURRENCY)), $budget->getIncomesAmount());
-
-
     }
 }
