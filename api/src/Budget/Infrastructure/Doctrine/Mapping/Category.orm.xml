@@ -5,13 +5,11 @@
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <entity name="MyBudget\Budget\Domain\Model\Category">
-        <id name="id" type="integer">
-            <generator strategy="AUTO" />
-        </id>
+        <id name="id" type="integer" />
 
-        <field name="name" type="string" />
-        <field name="description" type="string" />
-
-<!--       ?? <embedded name="type" class="MyBudget\Budget\Domain\Enum\TransactionType" />-->
+        <field name="name" />
+        <field name="description" />
+        <field name="type" />
+<!--               enum-type="MyBudget\Budget\Domain\Enum\TransactionType" todo: not sure how to handle this with ddd (without dependency to vendor) -->
     </entity>
 </doctrine-mapping>

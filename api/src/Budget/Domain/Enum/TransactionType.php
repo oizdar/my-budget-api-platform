@@ -1,6 +1,6 @@
 <?php
 
-namespace MyBudget\Budget\Domain\Enums;
+namespace MyBudget\Budget\Domain\Enum;
 
 enum TransactionType
 {
