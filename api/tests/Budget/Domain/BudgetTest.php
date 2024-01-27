@@ -16,6 +16,7 @@ class BudgetTest extends TestCase
     public function testEmptyBudget(): void
     {
         $budget = new Budget(
+            1,
             // new PlanConfiguration([]),
             // 'Empty budget',
             new DateTimeImmutable('2021-01-01'),
@@ -30,6 +31,7 @@ class BudgetTest extends TestCase
     public function testBudgetAddTransactions(): void
     {
         $budget = new Budget(
+            1,
             // new PlanConfiguration([]),
             // 'Empty budget',
             new DateTimeImmutable('2021-01-01'),

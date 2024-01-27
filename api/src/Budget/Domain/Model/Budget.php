@@ -16,6 +16,7 @@ class Budget
     public const string DEFAULT_CURRENCY = self::CURRENCY_PLN;
 
     public function __construct(
+        private int $id,
         // private PlanConfiguration $planConfigurations,
         // private string $description,
         private DateTimeImmutable $dateFrom,
@@ -27,6 +28,11 @@ class Budget
         if ($dateFrom > $dateTo) {
             throw new InvalidArgumentException();
         }
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     public function getIncomesAmount(): Money
