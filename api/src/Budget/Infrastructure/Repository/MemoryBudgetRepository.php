@@ -8,20 +8,20 @@ use MyBudget\Budget\Domain\Repository\BudgetRepository;
 
 class MemoryBudgetRepository implements BudgetRepository
 {
-
     /**
      * @var Budget[]
      */
     private $budgets = [];
+
     public function add(Budget $budget): void
     {
         $this->budgets[$budget->getId()] = $budget;
     }
 
-
     public function get(int $id): Budget
     {
         $this->isBudgetExists($id);
+
         return $this->budgets[$id];
     }
 

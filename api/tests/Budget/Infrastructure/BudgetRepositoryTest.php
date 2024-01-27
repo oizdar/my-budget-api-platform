@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 abstract class BudgetRepositoryTest extends TestCase
 {
     private BudgetRepository $repository;
+
     abstract protected function createRepository(): BudgetRepository;
 
     protected function setUp(): void
