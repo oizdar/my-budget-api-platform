@@ -38,6 +38,7 @@ class DoctrineBudgetRepository implements BudgetRepository
         try {
             $cart = $query->getSingleResult();
             assert($cart instanceof Budget);
+
             return $cart;
         } catch (NoResultException) {
             throw new BudgetNotFoundException();
@@ -52,5 +53,4 @@ class DoctrineBudgetRepository implements BudgetRepository
         $budget = $this->get($id);
         $this->entityManager->remove($budget);
     }
-
 }

@@ -5,7 +5,6 @@ namespace MyBudget\Tests\Budget\Infrastructure;
 use DateTimeImmutable;
 use MyBudget\Budget\Domain\Model\Budget;
 use MyBudget\Budget\Domain\Repository\BudgetRepository;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 abstract class BudgetRepositoryTest extends KernelTestCase
