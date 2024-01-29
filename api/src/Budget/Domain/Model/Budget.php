@@ -12,8 +12,8 @@ use MyBudget\Budget\Domain\Exceptions\TransactionOutsideBudgetRange;
 
 class Budget
 {
-    public const string CURRENCY_PLN = 'PLN';
-    public const string DEFAULT_CURRENCY = self::CURRENCY_PLN;
+//    public const string CURRENCY_PLN = 'PLN'; //TODO: generates error in deptrac
+//    public const string DEFAULT_CURRENCY = self::CURRENCY_PLN;
 
     public function __construct(
         private int $id,
@@ -23,7 +23,7 @@ class Budget
         private DateTimeImmutable $dateTo,
         /** @var Transaction[] */
         private array $transactions = [],
-        private Currency $currency = new Currency(self::DEFAULT_CURRENCY)
+        private Currency $currency = new Currency('PLN') // self::DEFAULT_CURRENCY,
     ) {
         if ($dateFrom > $dateTo) {
             throw new InvalidArgumentException();

@@ -54,6 +54,9 @@ jobs:
         name: PHPStan
         run: docker compose exec -T php vendor/bin/phpstan analyze
       -
+        name: Deptrac
+        run: docker compose exec -T php vendor/bin/deptrac analyse --report-uncovered --fail-on-uncovered
+      -
         name: Create test database
         run: docker compose exec -T php bin/console -e test doctrine:database:create
       -
