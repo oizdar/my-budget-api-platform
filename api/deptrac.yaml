@@ -23,9 +23,7 @@ parameters:
         - name: Vendors
           collectors:
               - { type: className, regex: ^ApiPlatform\\ }
-              - { type: className, regex: ^Symfony\\(?!(Component\\Uid\\)) }
               - { type: className, regex: ^Doctrine\\(?!(ORM\\Mapping)) }
-              - { type: className, regex: ^Webmozart\\(?!Assert\\Assert) }
 
         - name: Attributes
           collectors:
@@ -33,8 +31,7 @@ parameters:
 
         - name: Helpers
           collectors:
-              - { type: className, regex: ^Symfony\\Component\\Uid\\ }
-              - { type: className, regex: ^Webmozart\\Assert\\Assert }
+              - { type: className, regex: ^Money\\ }
 
     ruleset:
         Domain: 
