@@ -16,8 +16,10 @@ services:
     MyBudget\:
         resource: '../src/'
         exclude:
-            - '../src/DependencyInjection/'
-            - '../src/Entity/'
+            - '../src/*/Domain/Enum/'
+            - '../src/*/Domain/Model/'
+            - '../src/*/Domain/Exceptions/'
+            - '../src/*/Infrastructure/Doctrine/Mapping/'
             - '../src/Kernel.php'
 
     # add more service definitions when explicit configuration is needed
