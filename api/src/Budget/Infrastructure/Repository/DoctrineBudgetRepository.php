@@ -15,11 +15,6 @@ class DoctrineBudgetRepository implements BudgetRepository
     {
     }
 
-    /**
-     * @var Budget[]
-     */
-    private $budgets = [];
-
     public function add(Budget $budget): void
     {
         $this->entityManager->persist($budget);
@@ -36,10 +31,10 @@ class DoctrineBudgetRepository implements BudgetRepository
 
         $query = $queryBuilder->getQuery();
         try {
-            $cart = $query->getSingleResult();
-            assert($cart instanceof Budget);
+            $budget = $query->getSingleResult();
+            assert($budget instanceof Budget);
 
-            return $cart;
+            return $budget;
         } catch (NoResultException) {
             throw new BudgetNotFoundException();
         }
