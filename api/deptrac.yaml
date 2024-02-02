@@ -25,10 +25,6 @@ parameters:
               - { type: className, regex: ^ApiPlatform\\ }
               - { type: className, regex: ^Doctrine\\(?!(ORM\\Mapping)) }
 
-        - name: Attributes
-          collectors:
-              - { type: className, regex: ^Doctrine\\ORM\\Mapping }
-
         - name: Helpers
           collectors:
               - { type: className, regex: ^Money\\ }
@@ -36,7 +32,6 @@ parameters:
     ruleset:
         Domain: 
             - Helpers
-            - Attributes
 
         Application: 
             - Domain

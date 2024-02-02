@@ -12,8 +12,8 @@ use MyBudget\Budget\Domain\Exceptions\TransactionOutsideBudgetRange;
 
 class Budget
 {
-    //    public const string CURRENCY_PLN = 'PLN'; //TODO: generates error in deptrac
-    //    public const string DEFAULT_CURRENCY = self::CURRENCY_PLN;
+        public const CURRENCY_PLN = 'PLN'; //TODO: generates error in deptrac
+        public const DEFAULT_CURRENCY = self::CURRENCY_PLN;
 
     public function __construct(
         private int $id,

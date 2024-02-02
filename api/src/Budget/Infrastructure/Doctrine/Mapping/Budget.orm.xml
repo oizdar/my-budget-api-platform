@@ -7,26 +7,26 @@
     <entity name="MyBudget\Budget\Domain\Model\Budget">
         <id name="id" type="integer" />
 
-        <field name="budgetGoal" />
+<!--        <field name="budgetGoal" />-->
 <!--               enum-type="MyBudget\Budget\Domain\Enum\BudgetGoal" todo: not sure how to handle this with ddd (without dependency to vendor) -->
 
-        <field name="description" />
+<!--        <field name="description" />-->
         <field name="dateFrom" type="date" />
         <field name="dateTo" type="date" />
 
-        <many-to-many field="planConfigurations" target-entity="MyBudget\Budget\Domain\Model\PlanConfiguration">
-            <cascade>
-                <cascade-all />
-            </cascade>
-            <join-table name="budget_plan_configurations">
-                <join-columns>
-                    <join-column name="budget_id" />
-                </join-columns>
-                <inverse-join-columns>
-                    <join-column name="plan_configuration_id"/>
-                </inverse-join-columns>
-            </join-table>
-        </many-to-many>
+<!--        <many-to-many field="planConfigurations" target-entity="MyBudget\Budget\Domain\Model\PlanConfiguration">-->
+<!--            <cascade>-->
+<!--                <cascade-all />-->
+<!--            </cascade>-->
+<!--            <join-table name="budget_plan_configurations">-->
+<!--                <join-columns>-->
+<!--                    <join-column name="budget_id" />-->
+<!--                </join-columns>-->
+<!--                <inverse-join-columns>-->
+<!--                    <join-column name="plan_configuration_id"/>-->
+<!--                </inverse-join-columns>-->
+<!--            </join-table>-->
+<!--        </many-to-many>-->
 
 
         <many-to-many field="transactions" target-entity="MyBudget\Budget\Domain\Model\Transaction">

@@ -15,6 +15,7 @@ abstract class BudgetRepositoryTest extends KernelTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->repository = $this->createRepository();
     }
 

@@ -10,6 +10,7 @@ use MyBudget\Budget\Domain\Enum\TransactionType;
 class Transaction
 {
     public function __construct(
+        private int $id,
         private readonly TransactionType $type,
         private readonly Money $amount,
         private readonly DateTimeImmutable $date,

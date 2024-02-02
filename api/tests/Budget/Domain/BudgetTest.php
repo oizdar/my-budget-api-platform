@@ -39,37 +39,42 @@ class BudgetTest extends TestCase
             []
         );
 
+        $category = new Category(1, 'Inne');
         $budget->addTransaction(
             new Transaction(
+                1,
                 TransactionType::INCOME,
                 new Money(1000, new Currency(Budget::DEFAULT_CURRENCY)),
                 new DateTimeImmutable('2021-01-01'),
-                new Category('Inne')
+                $category
             )
         );
         $budget->addTransaction(
             new Transaction(
+                2,
                 TransactionType::INCOME,
                 new Money(1200, new Currency(Budget::DEFAULT_CURRENCY)),
                 new DateTimeImmutable('2021-01-02'),
-                new Category('Inne')
+                $category
             )
         );
 
         $budget->addTransaction(
             new Transaction(
+                3,
                 TransactionType::EXPENSE,
                 new Money(500, new Currency(Budget::DEFAULT_CURRENCY)),
                 new DateTimeImmutable('2021-01-30'),
-                new Category('Inne')
+                $category
             )
         );
         $budget->addTransaction(
             new Transaction(
+                4,
                 TransactionType::EXPENSE,
                 new Money(600, new Currency(Budget::DEFAULT_CURRENCY)),
                 new DateTimeImmutable('2021-01-31'),
-                new Category('Inne')
+                $category
             )
         );
 

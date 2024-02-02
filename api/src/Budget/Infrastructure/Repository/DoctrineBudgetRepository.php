@@ -2,8 +2,8 @@
 
 namespace MyBudget\Budget\Infrastructure\Repository;
 
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Exception\ORMException;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use MyBudget\Budget\Domain\Exceptions\BudgetNotFoundException;
 use MyBudget\Budget\Domain\Model\Budget;
@@ -11,7 +11,7 @@ use MyBudget\Budget\Domain\Repository\BudgetRepository;
 
 class DoctrineBudgetRepository implements BudgetRepository
 {
-    public function __construct(private EntityManager $entityManager)
+    public function __construct(private readonly EntityManagerInterface $entityManager)
     {
     }
 
@@ -35,14 +35,11 @@ class DoctrineBudgetRepository implements BudgetRepository
             assert($budget instanceof Budget);
 
             return $budget;
-        } catch (NoResultException) {
+        } catch (NoResultException|NonUniqueResultException) {
             throw new BudgetNotFoundException();
         }
     }
 
-    /**
-     * @throws ORMException
-     */
     public function remove(int $id): void
     {
         $budget = $this->get($id);

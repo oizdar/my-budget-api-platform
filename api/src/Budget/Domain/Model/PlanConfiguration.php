@@ -5,6 +5,7 @@ namespace MyBudget\Budget\Domain\Model;
 class PlanConfiguration
 {
     public function __construct(
+        private int $id,
         /** @var PlanConfigurationItem[] */
         private array $planConfigurationItems,
     ) {
