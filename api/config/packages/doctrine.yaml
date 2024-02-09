@@ -18,8 +18,13 @@ doctrine:
             Budget:
                 is_bundle: false
                 type: xml
-                dir: '%kernel.project_dir%/src/Budget/Infrastructure/Doctrine/Mapping'
+                dir: '%kernel.project_dir%/src/Budget/Infrastructure/Mapping'
                 prefix: 'MyBudget\Budget\Domain\Model'
+            Embedables:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Budget/Infrastructure/Embedables'
+                prefix: 'Money'
 
 when@test:
     doctrine:

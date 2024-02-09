@@ -7,12 +7,12 @@
     <entity name="MyBudget\Budget\Domain\Model\Transaction">
         <id name="id" type="integer" />
 
-        <many-to-one field="category" target-entity="MyBudget\Budget\Domain\Model\Category">
+        <many-to-one field="category" target-entity="Category">
             <join-column name="category_id" />
         </many-to-one>
 
         <field name="comment" />
         <field name="date" type="datetime"/>
-        <!--        <embedded name="amount" class="Money/Money" />-->
+        <embedded name="amount" class="Money\Money" />
     </entity>
 </doctrine-mapping>

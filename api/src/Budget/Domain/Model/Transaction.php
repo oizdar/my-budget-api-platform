@@ -19,6 +19,11 @@ class Transaction
     ) {
     }
 
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
     public function getDate(): DateTimeImmutable
     {
         return $this->date;

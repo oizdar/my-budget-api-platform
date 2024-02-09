@@ -11,6 +11,11 @@ class PlanConfiguration
     ) {
     }
 
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
     public function addPlanItem(PlanConfigurationItem $planConfigurationItem): void
     {
         $this->planConfigurationItems[] = $planConfigurationItem;
