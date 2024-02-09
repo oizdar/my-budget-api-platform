@@ -23,6 +23,9 @@ jobs:
         with:
           recursive: true
   static-analyze:
+    defaults: 
+        run:
+            working-directory: ./api
     name: PHP Static Analyze
     runs-on: ubuntu-latest
     steps:
@@ -36,7 +39,7 @@ jobs:
           php-version: 8.3
       -
         name: Install Composer dependencies
-        run: composer install --no-progress --no-suggest --prefer-dist
+        run: composer install --no-interaction --no-progress --prefer-dist
       -
         name: PHP CS Fixer
         run: vendor/bin/php-cs-fixer fix --diff --dry-run --verbose # ignore env because csfixer not handling php8.3 yet
