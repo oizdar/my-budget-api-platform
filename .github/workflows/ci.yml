@@ -12,9 +12,46 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  tests:
+  lint:
+    name: Docker Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Lint Dockerfiles
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          recursive: true
+  static-analyze:
+    name: PHP Static Analyze
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      -
+        name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+      -
+        name: Install Composer dependencies
+        run: composer install --no-progress --no-suggest --prefer-dist
+      -
+        name: PHP CS Fixer
+        run: vendor/bin/php-cs-fixer fix --diff --dry-run --verbose # ignore env because csfixer not handling php8.3 yet
+      -
+        name: PHPStan
+        run: vendor/bin/phpstan analyze
+      -
+        name: Deptrac
+        run: vendor/bin/deptrac analyse --report-uncovered --fail-on-uncovered
+  tests: ## todo: unit tests after static analyze before functional and end2end tests
     name: Tests
     runs-on: ubuntu-latest
+    needs: 
+        - lint
+        - static-analyze
     steps:
       -
         name: Checkout
@@ -47,15 +84,6 @@ jobs:
       -
         name: Check PWA reachability
         run: "curl -vk -o /dev/null -H 'Accept: text/html' https://localhost"
-      - 
-        name: PHP CS Fixer
-        run: docker compose exec -e PHP_CS_FIXER_IGNORE_ENV=true -T php vendor/bin/php-cs-fixer fix --diff --dry-run --verbose # ignore env because csfixer not handling php8.3 yet
-      -  
-        name: PHPStan
-        run: docker compose exec -T php vendor/bin/phpstan analyze
-      -
-        name: Deptrac
-        run: docker compose exec -T php vendor/bin/deptrac analyse --report-uncovered --fail-on-uncovered
       -
         name: Create test database
         run: docker compose exec -T php bin/console -e test doctrine:database:create
@@ -68,15 +96,3 @@ jobs:
       -
         name: Run PHPUnit
         run: docker compose exec -T php bin/phpunit
-  lint:
-    name: Docker Lint
-    runs-on: ubuntu-latest
-    steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v4
-      -
-        name: Lint Dockerfiles
-        uses: hadolint/hadolint-action@v3.1.0
-        with:
-          recursive: true
