@@ -21,7 +21,6 @@ class BudgetTest extends TestCase
             // 'Empty budget',
             new DateTimeImmutable('2021-01-01'),
             new DateTimeImmutable('2021-01-31'),
-            []
         );
 
         $this->assertEquals(new Money(0, new Currency(Budget::DEFAULT_CURRENCY)), $budget->getExpensesAmount());
@@ -36,7 +35,6 @@ class BudgetTest extends TestCase
             // 'Empty budget',
             new DateTimeImmutable('2021-01-01'),
             new DateTimeImmutable('2021-01-31'),
-            []
         );
 
         $category = new Category(1, 'Inne');

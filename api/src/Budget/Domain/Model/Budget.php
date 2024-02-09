@@ -3,6 +3,8 @@
 namespace MyBudget\Budget\Domain\Model;
 
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use InvalidArgumentException;
 use Money\Currency;
 use Money\Money;
@@ -12,8 +14,8 @@ use MyBudget\Budget\Domain\Exceptions\TransactionOutsideBudgetRange;
 
 class Budget
 {
-        public const CURRENCY_PLN = 'PLN'; //TODO: generates error in deptrac
-        public const DEFAULT_CURRENCY = self::CURRENCY_PLN;
+    public const CURRENCY_PLN = 'PLN';
+    public const DEFAULT_CURRENCY = self::CURRENCY_PLN;
 
     public function __construct(
         private int $id,
@@ -21,8 +23,8 @@ class Budget
         // private string $description,
         private DateTimeImmutable $dateFrom,
         private DateTimeImmutable $dateTo,
-        /** @var Transaction[] */
-        private array $transactions = [],
+        /** @var Collection<int, Transaction> */
+        private Collection $transactions = new ArrayCollection(),
         private Currency $currency = new Currency('PLN') // self::DEFAULT_CURRENCY,
     ) {
         if ($dateFrom > $dateTo) {
@@ -70,6 +72,6 @@ class Budget
             throw new InvalidTransactionCurrency();
         }
 
-        $this->transactions[] = $transaction;
+        $this->transactions->add($transaction);
     }
 }

@@ -19,8 +19,9 @@ services:
             - '../src/*/Domain/Enum/'
             - '../src/*/Domain/Model/'
             - '../src/*/Domain/Exceptions/'
-            - '../src/*/Infrastructure/Doctrine/Mapping/'
+            - '../src/*/Infrastructure/Mapping/'
             - '../src/Kernel.php'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+            

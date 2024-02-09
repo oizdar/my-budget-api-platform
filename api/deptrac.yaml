@@ -23,11 +23,12 @@ parameters:
         - name: Vendors
           collectors:
               - { type: className, regex: ^ApiPlatform\\ }
-              - { type: className, regex: ^Doctrine\\(?!(ORM\\Mapping)) }
+              - { type: className, regex: ^Doctrine\\(?!(Common\\Collections)) }
 
         - name: Helpers
           collectors:
               - { type: className, regex: ^Money\\ }
+              - { type: className, regex: ^Doctrine\\Common\\Collections\\ }
 
     ruleset:
         Domain: 

@@ -1,6 +1,9 @@
 services:
-    # default configuration for services in *this* file
-    _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    # private removed services have to be set public for tests
+    # services becomes removed from the container if they are not used 
+    # clear below list after expanding the app
+    'MyBudget\Budget\Infrastructure\Repository\MemoryBudgetRepository':
+        public: true
+        
+    'MyBudget\Budget\Infrastructure\Repository\DoctrineBudgetRepository':
         public: true

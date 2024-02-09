@@ -3,6 +3,8 @@
 namespace MyBudget\Tests\Budget\Infrastructure;
 
 use DateTimeImmutable;
+use Money\Currency;
+use Money\Money;
 use MyBudget\Budget\Domain\Model\Budget;
 use MyBudget\Budget\Domain\Repository\BudgetRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -21,7 +23,7 @@ abstract class BudgetRepositoryTest extends KernelTestCase
 
     protected function flush()
     {
-        // in-memory doesn't have flush, handle when add db repository implementation
+        // in-memory doesn't need flush, to handle when adding db repository implementation
     }
 
     public function testAddAndGetBudgetSuccessfully()
@@ -32,9 +34,9 @@ abstract class BudgetRepositoryTest extends KernelTestCase
             // 'Empty budget',
             new DateTimeImmutable('2021-01-01'),
             new DateTimeImmutable('2021-01-31'),
-            []
         );
         $this->repository->add($budget);
+
         $this->flush();
 
         $this->repository->get(1);
@@ -44,9 +46,11 @@ abstract class BudgetRepositoryTest extends KernelTestCase
             // 'Empty budget',
             new DateTimeImmutable('2021-01-01'),
             new DateTimeImmutable('2021-01-31'),
-            []
         );
 
         $this->assertEquals(1, $budget->getId());
+        $this->assertEquals(new Money(0, new Currency('PLN')), $budget->getIncomesAmount());
+        $this->assertEquals(new Money(0, new Currency('PLN')), $budget->getExpensesAmount());
+        $this->assertEquals(new Money(0, new Currency('PLN')), $budget->getExpensesAmount());
     }
 }

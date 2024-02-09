@@ -9,6 +9,6 @@ class MemoryBudgetRepositoryTest extends BudgetRepositoryTest
 {
     protected function createRepository(): BudgetRepository
     {
-        return $this->getContainer()->get(MemoryBudgetRepository::class);
+        return static::getContainer()->get(MemoryBudgetRepository::class);
     }
 }
