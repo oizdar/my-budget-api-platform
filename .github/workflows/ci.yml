@@ -42,7 +42,9 @@ jobs:
         run: composer install --no-interaction --no-progress --prefer-dist
       -
         name: PHP CS Fixer
-        run: vendor/bin/php-cs-fixer fix --diff --dry-run --verbose # ignore env because csfixer not handling php8.3 yet
+        env:
+          PHP_CS_FIXER_IGNORE_ENV: true # ignore env because csfixer not handling php8.3 yet todo: remove when csfixer is updated
+        run: vendor/bin/php-cs-fixer fix --diff --dry-run --verbose 
       -
         name: PHPStan
         run: vendor/bin/phpstan analyze
