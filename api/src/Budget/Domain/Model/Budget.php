@@ -47,6 +47,21 @@ class Budget
         return $this->getAmount(TransactionType::EXPENSE);
     }
 
+    public function getDateFrom(): DateTimeImmutable
+    {
+        return $this->dateFrom;
+    }
+
+    public function getDateTo(): DateTimeImmutable
+    {
+        return $this->dateTo;
+    }
+
+    public function getCurrency(): Currency
+    {
+        return $this->currency;
+    }
+
     private function getAmount(TransactionType $transactionType, Category $category = null): Money
     {
         $incomesAmount = new Money(0, $this->currency);

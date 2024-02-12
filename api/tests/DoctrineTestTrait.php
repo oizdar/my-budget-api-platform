@@ -3,6 +3,7 @@
 namespace MyBudget\Tests;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -24,7 +25,7 @@ trait DoctrineTestTrait
         static::cleanupDatabase();
     }
 
-    public static function cleanupDatabase()
+    public static function cleanupDatabase(): void
     {
         (new Application(KernelTestCase::$kernel))
             ->find('doctrine:database:create')
@@ -35,7 +36,10 @@ trait DoctrineTestTrait
             ->run(new ArrayInput(['--force' => true]), new NullOutput());
     }
 
-    public static function truncateTableCascade(string $tableName)
+    /**
+     * @throws Exception
+     */
+    public static function truncateTableCascade(string $tableName): void
     {
         $stm = static::$connection->executeQuery(sprintf('TRUNCATE TABLE %s CASCADE', $tableName));
     }
