@@ -62,7 +62,7 @@ class Budget
         return $this->currency;
     }
 
-    private function getAmount(TransactionType $transactionType, Category $category = null): Money
+    private function getAmount(TransactionType $transactionType, ?Category $category = null): Money
     {
         $incomesAmount = new Money(0, $this->currency);
         foreach ($this->transactions as $transaction) {

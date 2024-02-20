@@ -12,7 +12,6 @@ use MyBudget\Budget\Infrastructure\ApiPlatform\Resource\BudgetResource;
 use MyBudget\Shared\Application\Command\CommandBusInterface;
 use Webmozart\Assert\Assert;
 
-
 /**
  * @implements ProcessorInterface<BudgetResource, BudgetResource>
  */
@@ -25,7 +24,7 @@ final readonly class CreateBudgetProcessor implements ProcessorInterface
 
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): BudgetResource
     {
-        /** @var BudgetResource $data */
+        /* @var BudgetResource $data */
         Assert::isInstanceOf($data, BudgetResource::class);
         Assert::notNull($data->dateFrom);
         Assert::notNull($data->dateTo);

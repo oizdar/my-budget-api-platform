@@ -16,6 +16,4 @@ final readonly class CreateBudgetCommand implements CommandInterface
         public Currency $currency,
     ) {
     }
-
-
 }
