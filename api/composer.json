@@ -19,6 +19,7 @@
         "symfony/flex": "^2.2",
         "symfony/framework-bundle": "6.3.*",
         "symfony/mercure-bundle": "^0.3.5",
+        "symfony/messenger": "6.3.*",
         "symfony/monolog-bundle": "^3.8",
         "symfony/property-access": "6.3.*",
         "symfony/property-info": "6.3.*",
@@ -27,7 +28,8 @@
         "symfony/serializer": "6.3.*",
         "symfony/twig-bundle": "6.3.*",
         "symfony/validator": "6.3.*",
-        "symfony/yaml": "6.3.*"
+        "symfony/yaml": "6.3.*",
+        "webmozart/assert": "^1.11"
     },
     "require-dev": {
         "api-platform/schema-generator": "^5.0",

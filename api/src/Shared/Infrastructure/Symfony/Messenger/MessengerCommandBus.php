@@ -11,6 +11,7 @@ use Symfony\Component\Messenger\HandleTrait;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Throwable;
 
+
 final class MessengerCommandBus implements CommandBusInterface
 {
     use HandleTrait;

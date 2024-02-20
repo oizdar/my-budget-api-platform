@@ -6,13 +6,16 @@ namespace MyBudget\Budget\Application\Command;
 
 use DateTimeImmutable;
 use Money\Currency;
+use MyBudget\Shared\Application\Command\CommandInterface;
 
-final readonly class CreateBudgetCommand
+final readonly class CreateBudgetCommand implements CommandInterface
 {
     public function __construct(
-        private DateTimeImmutable $dateFrom,
-        private DateTimeImmutable $dateTo,
-        private Currency $currency,
+        public DateTimeImmutable $dateFrom,
+        public DateTimeImmutable $dateTo,
+        public Currency $currency,
     ) {
     }
+
+
 }

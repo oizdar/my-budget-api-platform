@@ -1,6 +1,6 @@
 <?php
 
-use MyBudget\Kernel;
+use MyBudget\Shared\Infrastructure\Symfony\Kernel;
 
 require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
 
