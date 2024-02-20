@@ -3,6 +3,7 @@ parameters:
         - ./src/Budget
         - ./src/Notifications
         - ./src/AccountManagement
+        - ./src/Shared
 
     layers:
         - name: Domain
@@ -24,11 +25,13 @@ parameters:
           collectors:
               - { type: className, regex: ^ApiPlatform\\ }
               - { type: className, regex: ^Doctrine\\(?!(Common\\Collections)) }
+              - { type: className, regex: ^Symfony\\ }
 
         - name: Helpers
           collectors:
               - { type: className, regex: ^Money\\ }
               - { type: className, regex: ^Doctrine\\Common\\Collections\\ }
+              - { type: className, regex: ^Webmozart\\Assert\\ }
 
     ruleset:
         Domain: 
