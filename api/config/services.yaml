@@ -25,3 +25,15 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
             
+
+
+    BudgetCollectionProvider:
+        class: MyBudget\Infrastructure\BudgetCollectionProvider
+        tags:
+            - { name: 'my_budget.budget_provider', }
+        
+    'MyBudget\Budget\Infrastructure\Repository\InMemoryBudgetRepository':
+        public: true
+    
+    'MyBudget\Budget\Infrastructure\Repository\DoctrineBudgetRepository':
+        public: true

@@ -1,6 +1,8 @@
 api_platform:
-    title: Hello API Platform
-    version: 1.0.0
+    title: MyBudget API
+    version: 0.1
+    mapping:
+        paths: ['%kernel.project_dir%/src/Budget/Infrastructure/ApiPlatform/Resource']
     # Mercure integration, remove if unwanted
     mercure: ~
     formats:

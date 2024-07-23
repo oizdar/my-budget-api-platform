@@ -10,11 +10,12 @@ use Doctrine\ORM\NoResultException;
 use MyBudget\Budget\Domain\Exceptions\BudgetNotFoundException;
 use MyBudget\Budget\Domain\Model\Budget;
 use MyBudget\Budget\Domain\Repository\BudgetRepository;
+use MyBudget\Shared\Infrastructure\Doctrine\DoctrineRepository;
 
 /**
  * @extends EntityRepository<Budget>
  */
-class DoctrineBudgetRepository extends EntityRepository implements BudgetRepository
+class DoctrineBudgetRepository extends DoctrineRepository implements BudgetRepository
 {
     public function __construct(EntityManagerInterface $em)
     {

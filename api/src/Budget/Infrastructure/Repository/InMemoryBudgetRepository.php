@@ -6,7 +6,7 @@ use MyBudget\Budget\Domain\Exceptions\BudgetNotFoundException;
 use MyBudget\Budget\Domain\Model\Budget;
 use MyBudget\Budget\Domain\Repository\BudgetRepository;
 
-class MemoryBudgetRepository implements BudgetRepository
+class InMemoryBudgetRepository implements BudgetRepository
 {
     /**
      * @var Budget[]

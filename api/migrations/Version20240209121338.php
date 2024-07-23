@@ -19,8 +19,7 @@ final class Version20240209121338 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('DROP SEQUENCE greeting_id_seq CASCADE');
+        $this->addSql('DROP SEQUENCE IF EXISTS greeting_id_seq CASCADE');
         $this->addSql('CREATE TABLE budget (id INT NOT NULL, date_from DATE NOT NULL, date_to DATE NOT NULL, PRIMARY KEY(id))');
         $this->addSql('COMMENT ON COLUMN budget.date_from IS \'(DC2Type:date_immutable)\'');
         $this->addSql('COMMENT ON COLUMN budget.date_to IS \'(DC2Type:date_immutable)\'');

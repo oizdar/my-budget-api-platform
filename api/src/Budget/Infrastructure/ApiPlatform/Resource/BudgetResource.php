@@ -6,22 +6,26 @@ namespace MyBudget\Budget\Infrastructure\ApiPlatform\Resource;
 
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use DateTimeImmutable;
 use Money\Currency;
 use MyBudget\Budget\Domain\Model\Budget;
 use MyBudget\Budget\Infrastructure\ApiPlatform\Processor\CreateBudgetProcessor;
+use MyBudget\Budget\Infrastructure\ApiPlatform\Provider\BudgetCollectionProvider;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
     shortName: 'Budget',
     operations: [
-//        // queries
+        /**
+         * Queries
+         */
 //        new GetCollection(
-//            '/books/cheapest.{_format}',
+//            '/budgets.{_format}',
 //            openapiContext: ['summary' => 'Find cheapest Book resources.'],
 //            paginationEnabled: false,
-//            provider: CheapestBooksProvider::class,
+//            provider: BudgetCollectionProvider::class,
 //        ),
 //
 //        // commands
@@ -41,11 +45,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 //            processor: DiscountBookProcessor::class,
 //        ),
 //
-//        // basic crud
-//        new GetCollection(
+        /**
+         * Basic crud
+         */
+        new GetCollection(
 //            filters: [AuthorFilter::class],
-//            provider: BookCollectionProvider::class,
-//        ),
+            provider: BudgetCollectionProvider::class,
+        ),
 //        new Get(
 //            provider: BookItemProvider::class,
 //        ),

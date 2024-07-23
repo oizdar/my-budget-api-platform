@@ -3,12 +3,12 @@
 namespace MyBudget\Tests\Budget\Infrastructure;
 
 use MyBudget\Budget\Domain\Repository\BudgetRepository;
-use MyBudget\Budget\Infrastructure\Repository\MemoryBudgetRepository;
+use MyBudget\Budget\Infrastructure\Repository\InMemoryBudgetRepository;
 
 class MemoryBudgetRepositoryTest extends BudgetRepositoryTest
 {
     protected function createRepository(): BudgetRepository
     {
-        return static::getContainer()->get(MemoryBudgetRepository::class);
+        return static::getContainer()->get(InMemoryBudgetRepository::class);
     }
 }

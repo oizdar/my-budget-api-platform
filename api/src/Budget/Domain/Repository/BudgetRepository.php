@@ -4,8 +4,9 @@ namespace MyBudget\Budget\Domain\Repository;
 
 use MyBudget\Budget\Domain\Exceptions\BudgetNotFoundException;
 use MyBudget\Budget\Domain\Model\Budget;
+use MyBudget\Shared\Domain\Repository\RepositoryInterface;
 
-interface BudgetRepository
+interface BudgetRepository extends RepositoryInterface
 {
     public function add(Budget $budget): void;
 
