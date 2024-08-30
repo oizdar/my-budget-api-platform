@@ -2,6 +2,7 @@
 
 namespace MyBudget\Budget\Infrastructure\Repository;
 
+use App\BookStore\Domain\Model\Book;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -17,11 +18,14 @@ use MyBudget\Shared\Infrastructure\Doctrine\DoctrineRepository;
  */
 class DoctrineBudgetRepository extends DoctrineRepository implements BudgetRepository
 {
+    private const ENTITY_CLASS = Budget::class;
+    private const ALIAS = 'budget';
+
     public function __construct(EntityManagerInterface $em)
     {
         /** @var ClassMetadata<Budget> $classMetaData */
         $classMetaData = $em->getClassMetadata(Budget::class);
-        parent::__construct($em, $classMetaData);
+        parent::__construct($em, self::ENTITY_CLASS, self::ALIAS);
     }
 
     public function add(Budget $budget): void
