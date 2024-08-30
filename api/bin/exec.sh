@@ -1,3 +1,8 @@
 #!/bin/bash
+# Pobierz nazwę folderu nadrzędnego
+PROJECT_FOLDER=$(basename $(dirname $(dirname $(dirname $(realpath $0)))))
 
-docker exec -it my-budget-php-1 sh $@
+# Ustaw nazwę kontenera Docker, używając nazwy folderu projektu
+CONTAINER_NAME="${PROJECT_FOLDER}-php-1"
+
+docker exec -it "$CONTAINER_NAME" sh $@
