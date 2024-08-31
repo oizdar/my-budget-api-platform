@@ -3,7 +3,7 @@
 namespace MyBudget\Tests\Budget\Infrastructure;
 
 use MyBudget\Budget\Domain\Model\Budget;
-use MyBudget\Budget\Domain\Repository\BudgetRepository;
+use MyBudget\Budget\Domain\Repository\BudgetRepositoryInterface;
 use MyBudget\Tests\DoctrineTestTrait;
 
 class DoctrineBudgetRepositoryTest extends BudgetRepositoryTest
@@ -17,7 +17,7 @@ class DoctrineBudgetRepositoryTest extends BudgetRepositoryTest
         static::truncateTableCascade('budget');
     }
 
-    protected function createRepository(): BudgetRepository
+    protected function createRepository(): BudgetRepositoryInterface
     {
         return static::$entityManager->getRepository(Budget::class);
     }

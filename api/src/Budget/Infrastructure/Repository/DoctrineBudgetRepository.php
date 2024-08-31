@@ -10,32 +10,31 @@ use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use MyBudget\Budget\Domain\Exceptions\BudgetNotFoundException;
 use MyBudget\Budget\Domain\Model\Budget;
-use MyBudget\Budget\Domain\Repository\BudgetRepository;
+use MyBudget\Budget\Domain\Repository\BudgetRepositoryInterface;
 use MyBudget\Shared\Infrastructure\Doctrine\DoctrineRepository;
 
 /**
  * @extends EntityRepository<Budget>
  */
-class DoctrineBudgetRepository extends DoctrineRepository implements BudgetRepository
+class DoctrineBudgetRepository extends DoctrineRepository implements BudgetRepositoryInterface
 {
     private const ENTITY_CLASS = Budget::class;
     private const ALIAS = 'budget';
 
     public function __construct(EntityManagerInterface $em)
     {
-        /** @var ClassMetadata<Budget> $classMetaData */
-        $classMetaData = $em->getClassMetadata(Budget::class);
         parent::__construct($em, self::ENTITY_CLASS, self::ALIAS);
     }
 
-    public function add(Budget $budget): void
+    public function save(Budget $budget): void
     {
-        $this->getEntityManager()->persist($budget);
+        $this->em->persist($budget);
+        $this->em->flush();
     }
 
     public function get(int $id): Budget
     {
-        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+        $queryBuilder = $this->em->createQueryBuilder();
 
         $queryBuilder->select('budget')
             ->from(Budget::class, 'budget')
@@ -53,9 +52,9 @@ class DoctrineBudgetRepository extends DoctrineRepository implements BudgetRepos
         }
     }
 
-    public function remove(int $id): void
+    public function remove(Budget $budget): void
     {
-        $budget = $this->get($id);
-        $this->getEntityManager()->remove($budget);
+        $this->em->remove($budget);
+        $this->em->flush();
     }
 }

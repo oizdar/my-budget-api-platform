@@ -11,8 +11,10 @@ use ApiPlatform\Metadata\Post;
 use DateTimeImmutable;
 use Money\Currency;
 use MyBudget\Budget\Domain\Model\Budget;
+use MyBudget\Budget\Domain\ValueObject\BudgetId;
 use MyBudget\Budget\Infrastructure\ApiPlatform\Processor\CreateBudgetProcessor;
 use MyBudget\Budget\Infrastructure\ApiPlatform\Provider\BudgetCollectionProvider;
+use Symfony\Component\Uid\AbstractUid;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
@@ -78,15 +80,15 @@ final class BudgetResource
 {
     public function __construct(
         #[ApiProperty(readable: false, writable: false, identifier: true)]
-        public ?int $id = null,
+        public ?AbstractUid $id = null,
 
         #[Assert\NotNull(groups: ['create'])]
         #[Assert\Date(groups: ['create', 'Default'])]
-        public ?DateTimeImmutable $dateFrom = null,
+        public ?string $dateFrom = null,
 
         #[Assert\NotNull(groups: ['create'])]
         #[Assert\Date(groups: ['create', 'Default'])]
-        public ?DateTimeImmutable $dateTo = null,
+        public ?string $dateTo = null,
 
         #[Assert\NotNull(groups: ['create'])]
         public ?Currency $currency = null,
@@ -97,8 +99,8 @@ final class BudgetResource
     {
         return new self(
             $budget->getId(),
-            $budget->getDateFrom(),
-            $budget->getDateTo(),
+            $budget->getDateFrom()->format('Y-m-d'),
+            $budget->getDateTo()->format('Y-m-d'),
             $budget->getCurrency(),
         );
     }

@@ -6,9 +6,9 @@ use MyBudget\Budget\Domain\Exceptions\BudgetNotFoundException;
 use MyBudget\Budget\Domain\Model\Budget;
 use MyBudget\Shared\Domain\Repository\RepositoryInterface;
 
-interface BudgetRepository extends RepositoryInterface
+interface BudgetRepositoryInterface extends RepositoryInterface
 {
-    public function add(Budget $budget): void;
+    public function save(Budget $budget): void;
 
     /**
      * @throws BudgetNotFoundException
@@ -18,5 +18,5 @@ interface BudgetRepository extends RepositoryInterface
     /**
      * @throws BudgetNotFoundException
      */
-    public function remove(int $id): void;
+    public function remove(Budget $budget): void;
 }

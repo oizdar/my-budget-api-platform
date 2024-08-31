@@ -5,9 +5,12 @@
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <entity name="MyBudget\Budget\Domain\Model\Budget" repository-class="MyBudget\Budget\Infrastructure\Repository\DoctrineBudgetRepository">
-        <id name="id" type="integer" />
+        <id name="id" type="uuid">
+            <generator strategy="NONE" />
+        </id>
 
-<!--        <field name="budgetGoal" />-->
+
+        <!--        <field name="budgetGoal" />-->
 <!--               enum-type="MyBudget\Budget\Domain\Enum\BudgetGoal" todo: not sure how to handle this with ddd (without dependency to vendor) -->
 
 <!--        <field name="description" />-->

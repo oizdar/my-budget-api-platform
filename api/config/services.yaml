@@ -39,5 +39,3 @@ imports:
 ##    'MyBudget\Budget\Infrastructure\Repository\InMemoryBudgetRepository':
 ##        public: true
 ##    
-##    'MyBudget\Budget\Infrastructure\Repository\DoctrineBudgetRepository':
-##        public: true

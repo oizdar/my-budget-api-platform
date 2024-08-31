@@ -4,7 +4,7 @@ namespace MyBudget\Budget\Infrastructure\Repository;
 
 use MyBudget\Budget\Domain\Exceptions\BudgetNotFoundException;
 use MyBudget\Budget\Domain\Model\Budget;
-use MyBudget\Budget\Domain\Repository\BudgetRepository;
+use MyBudget\Budget\Domain\Repository\BudgetRepositoryInterface;
 
 class InMemoryBudgetRepository //implements BudgetRepository
 {

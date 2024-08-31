@@ -6,14 +6,14 @@ use DateTimeImmutable;
 use Money\Currency;
 use Money\Money;
 use MyBudget\Budget\Domain\Model\Budget;
-use MyBudget\Budget\Domain\Repository\BudgetRepository;
+use MyBudget\Budget\Domain\Repository\BudgetRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 abstract class BudgetRepositoryTest extends KernelTestCase
 {
-    private BudgetRepository $repository;
+    private BudgetRepositoryInterface $repository;
 
-    abstract protected function createRepository(): BudgetRepository;
+    abstract protected function createRepository(): BudgetRepositoryInterface;
 
     protected function setUp(): void
     {
@@ -35,7 +35,7 @@ abstract class BudgetRepositoryTest extends KernelTestCase
             new DateTimeImmutable('2021-01-01'),
             new DateTimeImmutable('2021-01-31'),
         );
-        $this->repository->add($budget);
+        $this->repository->create($budget);
 
         $this->flush();
 

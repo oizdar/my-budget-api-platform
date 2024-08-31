@@ -6,6 +6,7 @@ namespace MyBudget\Budget\Infrastructure\ApiPlatform\Processor;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
+use DateTimeImmutable;
 use MyBudget\Budget\Application\Command\CreateBudgetCommand;
 use MyBudget\Budget\Domain\Model\Budget;
 use MyBudget\Budget\Infrastructure\ApiPlatform\Resource\BudgetResource;
@@ -31,8 +32,8 @@ final readonly class CreateBudgetProcessor implements ProcessorInterface
         Assert::notNull($data->currency);
 
         $command = new CreateBudgetCommand(
-            $data->dateFrom,
-            $data->dateTo,
+            new DateTimeImmutable($data->dateFrom),
+            new DateTimeImmutable($data->dateTo),
             $data->currency,
         );
 
