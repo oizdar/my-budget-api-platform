@@ -4,6 +4,7 @@ namespace MyBudget\Budget\Domain\Repository;
 
 use MyBudget\Budget\Domain\Exceptions\BudgetNotFoundException;
 use MyBudget\Budget\Domain\Model\Budget;
+use MyBudget\Budget\Domain\ValueObject\BudgetId;
 use MyBudget\Shared\Domain\Repository\RepositoryInterface;
 
 interface BudgetRepositoryInterface extends RepositoryInterface
@@ -13,7 +14,7 @@ interface BudgetRepositoryInterface extends RepositoryInterface
     /**
      * @throws BudgetNotFoundException
      */
-    public function get(int $id): Budget;
+    public function getByBudgetId(BudgetId $uuid): Budget;
 
     /**
      * @throws BudgetNotFoundException

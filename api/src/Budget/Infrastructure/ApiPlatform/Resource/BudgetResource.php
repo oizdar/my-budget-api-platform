@@ -55,7 +55,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             provider: BudgetCollectionProvider::class,
         ),
 //        new Get(
-//            provider: BookItemProvider::class,
+//            provider: BudgetItemProvider::class,
 //        ),
         new Post(
             validationContext: ['groups' => ['create']],
@@ -80,7 +80,11 @@ final class BudgetResource
 {
     public function __construct(
         #[ApiProperty(readable: false, writable: false, identifier: true)]
-        public ?AbstractUid $id = null,
+        public ?BudgetId $budgetId = null,
+
+        #[Assert\NotNull(groups: ['create'])]
+        #[Assert\Length(min: 3, max: 150, groups: ['create'])]
+        public ?string $name = null,
 
         #[Assert\NotNull(groups: ['create'])]
         #[Assert\Date(groups: ['create', 'Default'])]
@@ -98,7 +102,8 @@ final class BudgetResource
     public static function fromModel(Budget $budget): static
     {
         return new self(
-            $budget->getId(),
+            $budget->getBudgetId(),
+            $budget->getName(),
             $budget->getDateFrom()->format('Y-m-d'),
             $budget->getDateTo()->format('Y-m-d'),
             $budget->getCurrency(),

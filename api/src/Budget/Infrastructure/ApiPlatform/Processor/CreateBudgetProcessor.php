@@ -23,15 +23,19 @@ final readonly class CreateBudgetProcessor implements ProcessorInterface
     ) {
     }
 
+
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): BudgetResource
     {
         /* @var BudgetResource $data */
         Assert::isInstanceOf($data, BudgetResource::class);
+        Assert::notNull($data->name);
+        Assert::length($data->name, 3, 150);
         Assert::notNull($data->dateFrom);
         Assert::notNull($data->dateTo);
         Assert::notNull($data->currency);
 
         $command = new CreateBudgetCommand(
+            $data->name,
             new DateTimeImmutable($data->dateFrom),
             new DateTimeImmutable($data->dateTo),
             $data->currency,

@@ -5,7 +5,7 @@
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <embeddable name="MyBudget\Budget\Domain\ValueObject\BudgetId">
-        <id name="id" type="uuid" >
-        </id>
+        <field name="uuid" type="uuid" />
     </embeddable>
+
 </doctrine-mapping>

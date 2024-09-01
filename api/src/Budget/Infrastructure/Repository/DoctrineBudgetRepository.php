@@ -11,6 +11,7 @@ use Doctrine\ORM\NoResultException;
 use MyBudget\Budget\Domain\Exceptions\BudgetNotFoundException;
 use MyBudget\Budget\Domain\Model\Budget;
 use MyBudget\Budget\Domain\Repository\BudgetRepositoryInterface;
+use MyBudget\Budget\Domain\ValueObject\BudgetId;
 use MyBudget\Shared\Infrastructure\Doctrine\DoctrineRepository;
 
 /**
@@ -32,14 +33,14 @@ class DoctrineBudgetRepository extends DoctrineRepository implements BudgetRepos
         $this->em->flush();
     }
 
-    public function get(int $id): Budget
+    public function getByBudgetId(BudgetId $budgetId): Budget
     {
         $queryBuilder = $this->em->createQueryBuilder();
 
         $queryBuilder->select('budget')
             ->from(Budget::class, 'budget')
-            ->where('budget.id = :id')
-            ->setParameter(':id', $id);
+            ->where('budget.budgetId = :budgetId')
+            ->setParameter(':budgetId', $budgetId);
 
         $query = $queryBuilder->getQuery();
         try {

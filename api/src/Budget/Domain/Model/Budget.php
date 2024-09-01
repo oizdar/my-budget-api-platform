@@ -12,28 +12,29 @@ use MyBudget\Budget\Domain\Enum\TransactionType;
 use MyBudget\Budget\Domain\Exceptions\InvalidTransactionCurrency;
 use MyBudget\Budget\Domain\Exceptions\TransactionOutsideBudgetRange;
 use MyBudget\Budget\Domain\ValueObject\BudgetId;
-use Symfony\Component\Uid\AbstractUid;
-use Symfony\Component\Uid\Uuid;
 
 class Budget
 {
     public const CURRENCY_PLN = 'PLN';
     public const DEFAULT_CURRENCY = self::CURRENCY_PLN;
 
-    private readonly AbstractUid $id;
+    private readonly int $id;
+    private readonly BudgetId $budgetId;
 
     /** @var Collection<int, Transaction> */
     private Collection $transactions;
 
     public function __construct(
         // private PlanConfiguration $planConfigurations,
-        // private string $description,
+        private string $name,
         private DateTimeImmutable $dateFrom,
         private DateTimeImmutable $dateTo,
         private Currency $currency = new Currency(self::DEFAULT_CURRENCY)
     ) {
-        $this->id = Uuid::v4();
+        $this->budgetId = new BudgetId();
         $this->transactions = new ArrayCollection();
+
+
 
         if ($dateFrom > $dateTo) {
             throw new InvalidArgumentException();
@@ -41,9 +42,19 @@ class Budget
 
     }
 
-    public function getId(): AbstractUid
+    public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getBudgetId(): BudgetId
+    {
+        return $this->budgetId;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     public function getIncomesAmount(): Money

@@ -17,6 +17,7 @@ final readonly class CreateBudgetCommandHandler implements CommandHandlerInterfa
     public function __invoke(CreateBudgetCommand $command): Budget
     {
         $budget = new Budget(
+            $command->name,
             $command->dateFrom,
             $command->dateTo,
             $command->currency,
