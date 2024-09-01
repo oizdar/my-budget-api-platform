@@ -11,7 +11,8 @@ use Money\Money;
 use MyBudget\Budget\Domain\Enum\TransactionType;
 use MyBudget\Budget\Domain\Exceptions\InvalidTransactionCurrency;
 use MyBudget\Budget\Domain\Exceptions\TransactionOutsideBudgetRange;
-use MyBudget\Budget\Domain\ValueObject\BudgetId;
+use MyBudget\Budget\Domain\ValueObject\BudgetUuid;
+use Webmozart\Assert\Assert;
 
 class Budget
 {
@@ -19,7 +20,7 @@ class Budget
     public const DEFAULT_CURRENCY = self::CURRENCY_PLN;
 
     private readonly int $id;
-    private readonly BudgetId $budgetId;
+    private readonly BudgetUuid $budgetUuid;
 
     /** @var Collection<int, Transaction> */
     private Collection $transactions;
@@ -31,10 +32,10 @@ class Budget
         private DateTimeImmutable $dateTo,
         private Currency $currency = new Currency(self::DEFAULT_CURRENCY)
     ) {
-        $this->budgetId = new BudgetId();
+        $this->budgetUuid = new BudgetUuid();
         $this->transactions = new ArrayCollection();
 
-
+        Assert::lengthBetween($this->name, 3, 150);
 
         if ($dateFrom > $dateTo) {
             throw new InvalidArgumentException();
@@ -47,9 +48,9 @@ class Budget
         return $this->id;
     }
 
-    public function getBudgetId(): BudgetId
+    public function getBudgetUuid(): BudgetUuid
     {
-        return $this->budgetId;
+        return $this->budgetUuid;
     }
 
     public function getName(): string
@@ -79,7 +80,7 @@ class Budget
 
     public function getCurrency(): Currency
     {
-        return $this->currency;
+        return $this->currency ?? new Currency(self::DEFAULT_CURRENCY); //todo: remove after column handling
     }
 
     private function getAmount(TransactionType $transactionType, ?Category $category = null): Money

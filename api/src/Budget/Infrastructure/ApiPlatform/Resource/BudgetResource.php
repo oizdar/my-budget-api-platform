@@ -6,15 +6,15 @@ namespace MyBudget\Budget\Infrastructure\ApiPlatform\Resource;
 
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
-use DateTimeImmutable;
 use Money\Currency;
 use MyBudget\Budget\Domain\Model\Budget;
-use MyBudget\Budget\Domain\ValueObject\BudgetId;
+use MyBudget\Budget\Domain\ValueObject\BudgetUuid;
 use MyBudget\Budget\Infrastructure\ApiPlatform\Processor\CreateBudgetProcessor;
 use MyBudget\Budget\Infrastructure\ApiPlatform\Provider\BudgetCollectionProvider;
-use Symfony\Component\Uid\AbstractUid;
+use MyBudget\Budget\Infrastructure\ApiPlatform\Provider\BudgetProvider;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
@@ -54,9 +54,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 //            filters: [AuthorFilter::class],
             provider: BudgetCollectionProvider::class,
         ),
-//        new Get(
-//            provider: BudgetItemProvider::class,
-//        ),
+        new Get(
+            provider: BudgetProvider::class,
+        ),
         new Post(
             validationContext: ['groups' => ['create']],
             processor: CreateBudgetProcessor::class,
@@ -80,7 +80,7 @@ final class BudgetResource
 {
     public function __construct(
         #[ApiProperty(readable: false, writable: false, identifier: true)]
-        public ?BudgetId $budgetId = null,
+        public ?BudgetUuid $budgetUuid = null,
 
         #[Assert\NotNull(groups: ['create'])]
         #[Assert\Length(min: 3, max: 150, groups: ['create'])]
@@ -102,7 +102,7 @@ final class BudgetResource
     public static function fromModel(Budget $budget): static
     {
         return new self(
-            $budget->getBudgetId(),
+            $budget->getBudgetUuid(),
             $budget->getName(),
             $budget->getDateFrom()->format('Y-m-d'),
             $budget->getDateTo()->format('Y-m-d'),

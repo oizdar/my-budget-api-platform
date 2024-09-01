@@ -9,7 +9,7 @@
             <generator />
         </id>
 
-        <embedded name="budgetId" class="MyBudget\Budget\Domain\ValueObject\BudgetId" column-prefix=" " />
+        <embedded name="budgetUuid" class="MyBudget\Budget\Domain\ValueObject\BudgetUuid" column-prefix="budget_" />
 
         <!--        <field name="budgetGoal" />-->
 <!--               enum-type="MyBudget\Budget\Domain\Enum\BudgetGoal" todo: not sure how to handle this with ddd (without dependency to vendor) -->

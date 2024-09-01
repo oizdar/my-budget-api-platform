@@ -2,16 +2,14 @@
 
 namespace MyBudget\Budget\Infrastructure\Repository;
 
-use App\BookStore\Domain\Model\Book;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use MyBudget\Budget\Domain\Exceptions\BudgetNotFoundException;
 use MyBudget\Budget\Domain\Model\Budget;
 use MyBudget\Budget\Domain\Repository\BudgetRepositoryInterface;
-use MyBudget\Budget\Domain\ValueObject\BudgetId;
+use MyBudget\Budget\Domain\ValueObject\BudgetUuid;
 use MyBudget\Shared\Infrastructure\Doctrine\DoctrineRepository;
 
 /**
@@ -33,18 +31,17 @@ class DoctrineBudgetRepository extends DoctrineRepository implements BudgetRepos
         $this->em->flush();
     }
 
-    public function getByBudgetId(BudgetId $budgetId): Budget
+    public function findByBudgetUuid(BudgetUuid $budgetUuid): Budget
     {
         $queryBuilder = $this->em->createQueryBuilder();
 
-        $queryBuilder->select('budget')
-            ->from(Budget::class, 'budget')
-            ->where('budget.budgetId = :budgetId')
-            ->setParameter(':budgetId', $budgetId);
+        $queryBuilder->select( self::ALIAS)
+            ->from(self::ENTITY_CLASS, self::ALIAS)
+            ->where(self::ALIAS . '.budgetUuid.uuid = :budgetUuid')
+            ->setParameter('budgetUuid', $budgetUuid->uuid);
 
-        $query = $queryBuilder->getQuery();
         try {
-            $budget = $query->getSingleResult();
+            $budget = $queryBuilder->getQuery()->getSingleResult();
             assert($budget instanceof Budget);
 
             return $budget;

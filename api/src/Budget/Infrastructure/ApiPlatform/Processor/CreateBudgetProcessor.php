@@ -29,7 +29,7 @@ final readonly class CreateBudgetProcessor implements ProcessorInterface
         /* @var BudgetResource $data */
         Assert::isInstanceOf($data, BudgetResource::class);
         Assert::notNull($data->name);
-        Assert::length($data->name, 3, 150);
+        Assert::lengthBetween($data->name, 3, 150);
         Assert::notNull($data->dateFrom);
         Assert::notNull($data->dateTo);
         Assert::notNull($data->currency);
