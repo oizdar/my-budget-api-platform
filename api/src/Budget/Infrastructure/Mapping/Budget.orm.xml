@@ -11,8 +11,7 @@
 
         <embedded name="budgetUuid" class="MyBudget\Budget\Domain\ValueObject\BudgetUuid" column-prefix="budget_" />
 
-        <!--        <field name="budgetGoal" />-->
-<!--               enum-type="MyBudget\Budget\Domain\Enum\BudgetGoal" todo: not sure how to handle this with ddd (without dependency to vendor) -->
+        <embedded name="currency" class="Money\Currency" column-prefix="currency_" />
 
         <field name="name" length="150" />
         <field name="dateFrom" type="date_immutable" />

@@ -22,6 +22,10 @@ class Budget
     private readonly int $id;
     private readonly BudgetUuid $budgetUuid;
 
+    private DateTimeImmutable $createdAt;
+    private DateTimeImmutable $updatedAt;
+
+
     /** @var Collection<int, Transaction> */
     private Collection $transactions;
 
@@ -30,7 +34,7 @@ class Budget
         private string $name,
         private DateTimeImmutable $dateFrom,
         private DateTimeImmutable $dateTo,
-        private Currency $currency = new Currency(self::DEFAULT_CURRENCY)
+        private Currency $currency,
     ) {
         $this->budgetUuid = new BudgetUuid();
         $this->transactions = new ArrayCollection();

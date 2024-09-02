@@ -10,15 +10,16 @@ use Symfony\Component\Uid\Uuid;
 trait AggregateRootId
 {
 
-    public readonly AbstractUid $uuid;
+    public readonly AbstractUid $value;
 
     final public function __construct(?AbstractUid $value = null)
     {
-        $this->uuid = $value ?? Uuid::v4();
+        $this->value = $value ?? Uuid::v4();
     }
 
     public function __toString(): string
     {
-        return (string) $this->uuid;
+        return (string) $this->value;
     }
 }
+

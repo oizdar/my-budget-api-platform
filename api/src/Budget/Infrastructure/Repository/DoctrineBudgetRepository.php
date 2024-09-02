@@ -37,8 +37,8 @@ class DoctrineBudgetRepository extends DoctrineRepository implements BudgetRepos
 
         $queryBuilder->select( self::ALIAS)
             ->from(self::ENTITY_CLASS, self::ALIAS)
-            ->where(self::ALIAS . '.budgetUuid.uuid = :budgetUuid')
-            ->setParameter('budgetUuid', $budgetUuid->uuid);
+            ->where(self::ALIAS . '.budgetUuid.value = :budgetUuid')
+            ->setParameter('budgetUuid', $budgetUuid->value);
 
         try {
             $budget = $queryBuilder->getQuery()->getSingleResult();

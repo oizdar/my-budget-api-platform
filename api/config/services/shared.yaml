@@ -7,6 +7,7 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
     MyBudget\Shared\:
-        resource: '../../src/Shared/'
+        resource: '%kernel.project_dir%/src/Shared/'
         exclude:
-            - '../../src/Shared/Infrastructure/Symfony/Kernel.php'
+            - '%kernel.project_dir%/src/Shared/Infrastructure/Symfony/Kernel.php'
+    
