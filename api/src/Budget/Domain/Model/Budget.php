@@ -38,6 +38,8 @@ class Budget
     ) {
         $this->budgetUuid = new BudgetUuid();
         $this->transactions = new ArrayCollection();
+        $this->createdAt = new DateTimeImmutable();
+        $this->updatedAt = new DateTimeImmutable();
 
         Assert::lengthBetween($this->name, 3, 150);
 

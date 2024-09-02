@@ -49,8 +49,11 @@ jobs:
         name: PHPStan
         run: vendor/bin/phpstan analyze
       -
-        name: Deptrac
-        run: vendor/bin/deptrac analyse --report-uncovered --fail-on-uncovered
+        name: Deptrac Bounded Contexts
+        run: vendor/bin/deptrac analyse --report-uncovered --fail-on-uncovered --config-file deptrac_bc.yaml
+      -
+        name: Deptrac hexagonal
+        run: vendor/bin/deptrac analyse --report-uncovered --fail-on-uncovered --config-file deptrac_hexa.yaml
   tests: ## todo: unit tests after static analyze before functional and end2end tests
     name: Tests
     runs-on: ubuntu-latest

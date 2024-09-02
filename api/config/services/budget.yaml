@@ -34,3 +34,7 @@ services:
     MyBudget\Budget\Domain\Repository\BudgetRepositoryInterface:
         alias: MyBudget\Budget\Infrastructure\Repository\DoctrineBudgetRepository
             
+when@test:
+    services:
+        MyBudget\Budget\Infrastructure\Repository\InMemoryBudgetRepository:
+            public: true

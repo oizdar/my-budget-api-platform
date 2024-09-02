@@ -4,6 +4,8 @@ namespace MyBudget\Tests\Budget\Infrastructure;
 
 use MyBudget\Budget\Domain\Model\Budget;
 use MyBudget\Budget\Domain\Repository\BudgetRepositoryInterface;
+use MyBudget\Budget\Infrastructure\Repository\DoctrineBudgetRepository;
+use MyBudget\Budget\Infrastructure\Repository\InMemoryBudgetRepository;
 use MyBudget\Tests\DoctrineTestTrait;
 
 class DoctrineBudgetRepositoryTest extends BudgetRepositoryTest
@@ -19,6 +21,6 @@ class DoctrineBudgetRepositoryTest extends BudgetRepositoryTest
 
     protected function createRepository(): BudgetRepositoryInterface
     {
-        return static::$entityManager->getRepository(Budget::class);
+        return static::getContainer()->get(DoctrineBudgetRepository::class);
     }
 }

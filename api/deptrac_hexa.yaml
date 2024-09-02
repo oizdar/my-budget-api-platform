@@ -25,13 +25,14 @@ parameters:
           collectors:
               - { type: className, regex: ^ApiPlatform\\ }
               - { type: className, regex: ^Doctrine\\(?!(Common\\Collections)) }
-              - { type: className, regex: ^Symfony\\ }
+              - { type: className, regex: ^Symfony\\(?!(Component\\Uid)) }
 
         - name: Helpers
           collectors:
               - { type: className, regex: ^Money\\ }
               - { type: className, regex: ^Doctrine\\Common\\Collections\\ }
               - { type: className, regex: ^Webmozart\\Assert\\ }
+              - { type: className, regex: ^Symfony\\Component\\Uid\\ }
 
     ruleset:
         Domain: 

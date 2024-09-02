@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MyBudget\Budget\Application\Query;
 
-use Monolog\DateTimeImmutable;
+use DateTimeImmutable;
 use MyBudget\Shared\Application\Query\QueryInterface;
 
 final readonly class FindBudgetsQuery implements QueryInterface

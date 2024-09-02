@@ -6,7 +6,7 @@
 
     <entity name="MyBudget\Budget\Domain\Model\Budget" repository-class="MyBudget\Budget\Infrastructure\Repository\DoctrineBudgetRepository">
         <id name="id" type="integer">
-            <generator />
+            <generator strategy="SEQUENCE"/>
         </id>
 
         <embedded name="budgetUuid" class="MyBudget\Budget\Domain\ValueObject\BudgetUuid" column-prefix="budget_" />

@@ -5,36 +5,44 @@ namespace MyBudget\Budget\Infrastructure\Repository;
 use MyBudget\Budget\Domain\Exceptions\BudgetNotFoundException;
 use MyBudget\Budget\Domain\Model\Budget;
 use MyBudget\Budget\Domain\Repository\BudgetRepositoryInterface;
+use MyBudget\Budget\Domain\ValueObject\BudgetUuid;
+use MyBudget\Shared\Infrastructure\InMemory\InMemoryRepository;
 
-class InMemoryBudgetRepository //implements BudgetRepository
+/**
+ * @extends InMemoryRepository<Budget>
+ */
+class InMemoryBudgetRepository extends InMemoryRepository implements BudgetRepositoryInterface
 {
     /**
      * @var Budget[]
      */
     private $budgets = [];
 
-    public function add(Budget $budget): void
+    public function save(Budget $budget): void
     {
-        $this->budgets[$budget->getId()] = $budget;
+        $this->budgets[(string)$budget->getBudgetUuid()->value] = $budget;
     }
 
-    public function get(int $id): Budget
+    public function remove(Budget $budget): void
     {
-        $this->isBudgetExists($id);
+        $this->isBudgetExists($budget->getBudgetUuid());
 
-        return $this->budgets[$id];
+        unset($this->budgets[(string)$budget->getBudgetUuid()]);
     }
 
-    public function remove(int $id): void
+    private function isBudgetExists(BudgetUuid $uuid): void
     {
-        $this->isBudgetExists($id);
-        unset($this->budgets[$id]);
-    }
-
-    private function isBudgetExists(int $id): void
-    {
-        if (!isset($this->budgets[$id])) {
+        if (!isset($this->budgets[(string)$uuid])) {
             throw new BudgetNotFoundException();
         }
+    }
+
+
+    public function findByBudgetUuid(BudgetUuid $budgetUuid): Budget
+    {
+        $this->isBudgetExists($budgetUuid);
+
+        return $this->budgets[(string)$budgetUuid];
+
     }
 }

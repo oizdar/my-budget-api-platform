@@ -13,14 +13,14 @@ use PHPUnit\Framework\TestCase;
 
 class BudgetTest extends TestCase
 {
+    private const EXAMPLE_NAME_STRING = 'Example name';
     public function testEmptyBudget(): void
     {
         $budget = new Budget(
-            1,
-            // new PlanConfiguration([]),
-            // 'Empty budget',
+            self::EXAMPLE_NAME_STRING,
             new DateTimeImmutable('2021-01-01'),
             new DateTimeImmutable('2021-01-31'),
+            new Currency(Budget::DEFAULT_CURRENCY),
         );
 
         $this->assertEquals(new Money(0, new Currency(Budget::DEFAULT_CURRENCY)), $budget->getExpensesAmount());
@@ -30,11 +30,10 @@ class BudgetTest extends TestCase
     public function testBudgetAddTransactions(): void
     {
         $budget = new Budget(
-            1,
-            // new PlanConfiguration([]),
-            // 'Empty budget',
+            self::EXAMPLE_NAME_STRING,
             new DateTimeImmutable('2021-01-01'),
             new DateTimeImmutable('2021-01-31'),
+            new Currency(Budget::DEFAULT_CURRENCY),
         );
 
         $category = new Category(1, 'Inne');
