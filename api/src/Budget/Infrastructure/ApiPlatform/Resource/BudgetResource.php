@@ -10,6 +10,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use Money\Currency;
+use MyBudget\Budget\Domain\Enum\BudgetStatus;
 use MyBudget\Budget\Domain\Model\Budget;
 use MyBudget\Budget\Domain\ValueObject\BudgetUuid;
 use MyBudget\Budget\Infrastructure\ApiPlatform\Processor\CreateBudgetProcessor;
@@ -96,6 +97,9 @@ final class BudgetResource
 
         #[Assert\NotNull(groups: ['create'])]
         public ?Currency $currency = null,
+
+        #[ApiProperty(readable: true, writable: false)]
+        public ?BudgetStatus $status = null,
     ) {
     }
 
@@ -107,6 +111,7 @@ final class BudgetResource
             $budget->getDateFrom()->format('Y-m-d'),
             $budget->getDateTo()->format('Y-m-d'),
             $budget->getCurrency(),
+            $budget->getStatus(),
         );
     }
 }

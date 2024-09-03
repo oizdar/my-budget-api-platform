@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use InvalidArgumentException;
 use Money\Currency;
 use Money\Money;
+use MyBudget\Budget\Domain\Enum\BudgetStatus;
 use MyBudget\Budget\Domain\Enum\TransactionType;
 use MyBudget\Budget\Domain\Exceptions\InvalidTransactionCurrency;
 use MyBudget\Budget\Domain\Exceptions\TransactionOutsideBudgetRange;
@@ -22,6 +23,7 @@ class Budget
     private readonly int $id;
     private readonly BudgetUuid $budgetUuid;
 
+    private BudgetStatus $status;
     private DateTimeImmutable $createdAt;
     private DateTimeImmutable $updatedAt;
 
@@ -40,6 +42,7 @@ class Budget
         $this->transactions = new ArrayCollection();
         $this->createdAt = new DateTimeImmutable();
         $this->updatedAt = new DateTimeImmutable();
+        $this->status = BudgetStatus::DRAFT;
 
         Assert::lengthBetween($this->name, 3, 150);
 
@@ -87,6 +90,11 @@ class Budget
     public function getCurrency(): Currency
     {
         return $this->currency ?? new Currency(self::DEFAULT_CURRENCY); //todo: remove after column handling
+    }
+
+    public function getStatus(): BudgetStatus
+    {
+        return $this->status;
     }
 
     private function getAmount(TransactionType $transactionType, ?Category $category = null): Money

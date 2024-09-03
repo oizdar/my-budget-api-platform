@@ -16,7 +16,7 @@
         <field name="name" length="150" />
         <field name="dateFrom" type="date_immutable" />
         <field name="dateTo" type="date_immutable" />
-
+        <field name="status" length="10" />
 <!--        <many-to-many field="planConfigurations" target-entity="MyBudget\Budget\Domain\Model\PlanConfiguration">-->
 <!--            <cascade>-->
 <!--                <cascade-all />-->
