@@ -39,19 +39,11 @@
 <!--        </many-to-many>-->
 
 
-        <many-to-many field="transactions" target-entity="Transaction">
+        <one-to-many field="transactions" target-entity="Transaction" mapped-by="budget">
             <cascade>
                 <cascade-all />
             </cascade>
-            <join-table name="budgetTransactions">
-                <join-columns>
-                    <join-column name="budget_id" />
-                </join-columns>
-                <inverse-join-columns>
-                    <join-column name="transaction_id" />
-                </inverse-join-columns>
-            </join-table>
-        </many-to-many>
+        </one-to-many>
 
     </entity>
 </doctrine-mapping>

@@ -7,6 +7,8 @@ namespace MyBudget\Budget\Infrastructure\ApiPlatform\Processor;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use DateTimeImmutable;
+use DomainException;
+use InvalidArgumentException;
 use MyBudget\Budget\Application\Command\CreateBudgetCommand;
 use MyBudget\Budget\Domain\Model\Budget;
 use MyBudget\Budget\Infrastructure\ApiPlatform\Resource\BudgetResource;
@@ -41,8 +43,13 @@ final readonly class CreateBudgetProcessor implements ProcessorInterface
             $data->currency,
         );
 
-        /** @var Budget $model */
-        $model = $this->commandBus->dispatch($command);
+        try {
+            /** @var Budget $model */
+            $model = $this->commandBus->dispatch($command);
+        } catch (DomainException $e) {
+            throw new InvalidArgumentException($e->getMessage());
+        }
+
 
         return BudgetResource::fromModel($model);
     }

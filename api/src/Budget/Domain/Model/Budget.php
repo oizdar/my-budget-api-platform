@@ -20,6 +20,9 @@ use Webmozart\Assert\Assert;
 class Budget
 {
     public const CURRENCY_PLN = 'PLN';
+
+    public const CURRENCY_EUR = 'EUR';
+
     public const DEFAULT_CURRENCY = self::CURRENCY_PLN;
 
     private readonly int $id;
@@ -138,6 +141,8 @@ class Budget
 
     public function addTransaction(Transaction $transaction): void
     {
+        $transaction->setBudget($this);
+
         if ($transaction->getDate() < $this->dateFrom || $transaction->getDate() > $this->dateTo) {
             throw new TransactionOutsideBudgetRange();
         }
