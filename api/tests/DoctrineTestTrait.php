@@ -31,9 +31,14 @@ trait DoctrineTestTrait
             ->find('doctrine:database:create')
             ->run(new ArrayInput(['--if-not-exists' => true]), new NullOutput());
 
+
         (new Application(KernelTestCase::$kernel))
-            ->find('doctrine:schema:update')
+            ->find('doctrine:schema:drop')
             ->run(new ArrayInput(['--force' => true]), new NullOutput());
+
+        (new Application(KernelTestCase::$kernel))
+            ->find('doctrine:schema:create')
+            ->run(new ArrayInput([]), new NullOutput());
     }
 
     /**

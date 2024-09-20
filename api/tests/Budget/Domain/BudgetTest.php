@@ -5,11 +5,13 @@ namespace MyBudget\Tests\Budget\Domain;
 use DateTimeImmutable;
 use Money\Currency;
 use Money\Money;
+use MyBudget\Budget\Domain\Enum\BudgetStatus;
 use MyBudget\Budget\Domain\Enum\TransactionType;
 use MyBudget\Budget\Domain\Model\Budget;
 use MyBudget\Budget\Domain\Model\Category;
 use MyBudget\Budget\Domain\Model\Transaction;
 use PHPUnit\Framework\TestCase;
+use function Symfony\Component\Clock\now;
 
 class BudgetTest extends TestCase
 {
@@ -25,6 +27,9 @@ class BudgetTest extends TestCase
 
         $this->assertEquals(new Money(0, new Currency(Budget::DEFAULT_CURRENCY)), $budget->getExpensesAmount());
         $this->assertEquals(new Money(0, new Currency(Budget::DEFAULT_CURRENCY)), $budget->getIncomesAmount());
+        $this->assertEquals(BudgetStatus::DRAFT, $budget->getStatus());
+        $this->assertEquals(now()->format('Y-m-d'), $budget->getCreatedAt()->format('Y-m-d'));
+        $this->assertEquals(now()->format('Y-m-d'), $budget->getUpdatedAt()->format('Y-m-d'));
     }
 
     public function testBudgetAddTransactions(): void
@@ -77,5 +82,8 @@ class BudgetTest extends TestCase
 
         $this->assertEquals(new Money(1100, new Currency(Budget::DEFAULT_CURRENCY)), $budget->getExpensesAmount());
         $this->assertEquals(new Money(2200, new Currency(Budget::DEFAULT_CURRENCY)), $budget->getIncomesAmount());
+        $this->assertEquals(BudgetStatus::DRAFT, $budget->getStatus());
+        $this->assertEquals(now()->format('Y-m-d'), $budget->getCreatedAt()->format('Y-m-d'));
+        $this->assertEquals(now()->format('Y-m-d'), $budget->getUpdatedAt()->format('Y-m-d'));
     }
 }

@@ -10,9 +10,11 @@ use Money\Currency;
 use Money\Money;
 use MyBudget\Budget\Domain\Enum\BudgetStatus;
 use MyBudget\Budget\Domain\Enum\TransactionType;
+use MyBudget\Budget\Domain\Exceptions\BudgetStatusInvalidException;
 use MyBudget\Budget\Domain\Exceptions\InvalidTransactionCurrency;
 use MyBudget\Budget\Domain\Exceptions\TransactionOutsideBudgetRange;
 use MyBudget\Budget\Domain\ValueObject\BudgetUuid;
+use MyBudget\Shared\Domain\ValueObject\Timestamps;
 use Webmozart\Assert\Assert;
 
 class Budget
@@ -24,8 +26,7 @@ class Budget
     private readonly BudgetUuid $budgetUuid;
 
     private BudgetStatus $status;
-    private DateTimeImmutable $createdAt;
-    private DateTimeImmutable $updatedAt;
+    private Timestamps $timestamps;
 
 
     /** @var Collection<int, Transaction> */
@@ -40,16 +41,20 @@ class Budget
     ) {
         $this->budgetUuid = new BudgetUuid();
         $this->transactions = new ArrayCollection();
-        $this->createdAt = new DateTimeImmutable();
-        $this->updatedAt = new DateTimeImmutable();
         $this->status = BudgetStatus::DRAFT;
+        $this->timestamps = new Timestamps();
 
         Assert::lengthBetween($this->name, 3, 150);
 
         if ($dateFrom > $dateTo) {
             throw new InvalidArgumentException();
         }
+    }
 
+    public function preUpdate(): void
+    {
+        // Automatically update the updatedAt timestamp on entity updates.
+        $this->timestamps->update();
     }
 
     public function getId(): int
@@ -89,12 +94,31 @@ class Budget
 
     public function getCurrency(): Currency
     {
-        return $this->currency ?? new Currency(self::DEFAULT_CURRENCY); //todo: remove after column handling
+        return $this->currency;
     }
 
     public function getStatus(): BudgetStatus
     {
         return $this->status;
+    }
+
+    public function getCreatedAt(): DateTimeImmutable
+    {
+        return $this->timestamps->getCreatedAt();
+    }
+
+    public function getUpdatedAt(): DateTimeImmutable
+    {
+        return $this->timestamps->getUpdatedAt();
+    }
+
+    public function setActive()
+    {
+        if ($this->status !== BudgetStatus::DRAFT) {
+            throw new BudgetStatusInvalidException();
+        }
+
+        $this->status = BudgetStatus::ACTIVE;
     }
 
     private function getAmount(TransactionType $transactionType, ?Category $category = null): Money

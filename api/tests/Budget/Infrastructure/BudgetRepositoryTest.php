@@ -5,6 +5,7 @@ namespace MyBudget\Tests\Budget\Infrastructure;
 use DateTimeImmutable;
 use Money\Currency;
 use Money\Money;
+use MyBudget\Budget\Domain\Enum\BudgetStatus;
 use MyBudget\Budget\Domain\Model\Budget;
 use MyBudget\Budget\Domain\Repository\BudgetRepositoryInterface;
 use MyBudget\Budget\Infrastructure\Repository\DoctrineBudgetRepository;
@@ -38,18 +39,20 @@ abstract class BudgetRepositoryTest extends KernelTestCase
             new DateTimeImmutable('2021-01-31'),
             new Currency(Budget::DEFAULT_CURRENCY),
         );
-        $this->repository->save($budget);
 
+        $this->repository->save($budget);
         $this->flush();
 
         $budget = $this->repository->findByBudgetUuid($budget->getBudgetUuid());
 
-        if($this->repository instanceof DoctrineBudgetRepository) {
+        if ($this->repository instanceof DoctrineBudgetRepository) {
             $this->assertNotNull($budget->getId());
         }
+
         $this->assertTrue(Uuid::isValid($budget->getBudgetUuid()->value));
         $this->assertEquals(new Money(0, new Currency('PLN')), $budget->getIncomesAmount());
         $this->assertEquals(new Money(0, new Currency('PLN')), $budget->getExpensesAmount());
         $this->assertEquals(new Money(0, new Currency('PLN')), $budget->getExpensesAmount());
+        $this->assertEquals(BudgetStatus::DRAFT, $budget->getStatus());
     }
 }

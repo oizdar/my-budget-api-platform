@@ -13,7 +13,9 @@ doctrine:
         report_fields_where_declared: true
         validate_xml_mapping: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
-        auto_mapping: true
+        auto_mapping: false
+        controller_resolver: 
+            auto_mapping: false
         mappings:
             Budget:
                 is_bundle: false
@@ -25,9 +27,14 @@ doctrine:
                 type: xml
                 dir: '%kernel.project_dir%/src/Budget/Infrastructure/Embeddable'
                 prefix: MyBudget\Budget\Domain\ValueObject
-            Money:
+            SharedValueObject:
+                is_bundle: false
                 type: xml
                 dir: '%kernel.project_dir%/src/Shared/Infrastructure/Embeddable'
+                prefix: MyBudget\Shared\Domain\ValueObject
+            MoneyVendor:
+                type: xml
+                dir: '%kernel.project_dir%/src/Shared/Infrastructure/EmbeddableVendor'
                 prefix: Money
                 
 

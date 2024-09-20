@@ -5,6 +5,10 @@
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <entity name="MyBudget\Budget\Domain\Model\Budget" repository-class="MyBudget\Budget\Infrastructure\Repository\DoctrineBudgetRepository">
+        <lifecycle-callbacks>
+            <lifecycle-callback type="preUpdate" method="preUpdate" />
+        </lifecycle-callbacks>
+
         <id name="id" type="integer">
             <generator strategy="SEQUENCE"/>
         </id>
@@ -17,6 +21,9 @@
         <field name="dateFrom" type="date_immutable" />
         <field name="dateTo" type="date_immutable" />
         <field name="status" length="10" />
+
+        <embedded name="timestamps" class="MyBudget\Shared\Domain\ValueObject\Timestamps" />
+
 <!--        <many-to-many field="planConfigurations" target-entity="MyBudget\Budget\Domain\Model\PlanConfiguration">-->
 <!--            <cascade>-->
 <!--                <cascade-all />-->
