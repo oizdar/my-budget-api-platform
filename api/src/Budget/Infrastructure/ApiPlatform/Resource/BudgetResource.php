@@ -24,12 +24,6 @@ use Symfony\Component\Validator\Constraints as Assert;
         /**
          * Queries
          */
-//        new GetCollection(
-//            '/budgets.{_format}',
-//            openapiContext: ['summary' => 'Find cheapest Book resources.'],
-//            paginationEnabled: false,
-//            provider: BudgetCollectionProvider::class,
-//        ),
 //
 //        // commands
 //        new Post(
@@ -100,6 +94,8 @@ final class BudgetResource
 
         #[ApiProperty(readable: true, writable: false)]
         public ?BudgetStatus $status = null,
+
+        public ?array $transactions = null,
     ) {
     }
 
