@@ -9,10 +9,12 @@ use ApiPlatform\State\Pagination\Pagination;
 use ApiPlatform\State\ProviderInterface;
 use ArrayIterator;
 use MyBudget\Budget\Application\Query\FindBudgetTransactionsQuery;
+use MyBudget\Budget\Domain\ValueObject\BudgetUuid;
 use MyBudget\Budget\Infrastructure\ApiPlatform\Resource\BudgetResource;
 use MyBudget\Budget\Infrastructure\ApiPlatform\Resource\TransactionResource;
 use MyBudget\Shared\Application\Query\QueryBusInterface;
 use MyBudget\Shared\Infrastructure\ApiPlatform\State\Paginator;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @implements ProviderInterface<BudgetResource>
@@ -37,8 +39,8 @@ final readonly class BudgetTransactionsCollectionProvider implements ProviderInt
             $offset = $this->pagination->getPage($context);
             $limit = $this->pagination->getLimit($operation, $context);
         }
-ray($uriVariables, $context);
-        $models = $this->queryBus->ask(new FindBudgetTransactionsQuery());
+        $budgetUuid = new BudgetUuid(Uuid::fromString($uriVariables['budgetUuid']));
+        $models = $this->queryBus->ask(new FindBudgetTransactionsQuery($budgetUuid));
 
         $resources = [];
         foreach ($models as $model) {

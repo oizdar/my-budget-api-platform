@@ -6,16 +6,17 @@ namespace MyBudget\Budget\Application\Query;
 
 use MyBudget\Budget\Domain\Model\Budget;
 use MyBudget\Budget\Domain\Repository\BudgetRepositoryInterface;
+use MyBudget\Budget\Domain\Repository\TransactionsRepositoryInterface;
 use MyBudget\Shared\Application\Query\QueryHandlerInterface;
 
 final readonly class FindBudgetTransactionsQueryHandler implements QueryHandlerInterface
 {
-    public function __construct(private BudgetRepositoryInterface $budgetRepository)
+    public function __construct(private TransactionsRepositoryInterface $transactionsRepository)
     {
     }
 
-    public function __invoke(FindBudgetQuery $query): ?Budget
+    public function __invoke(FindBudgetTransactionsQuery $query): ?Budget
     {
-        return $this->budgetRepository->findByBudgetUuid($query->budgetUuid);
+        return $this->transactionsRepository->findByBudgetUuid($query->budgetUuid);
     }
 }

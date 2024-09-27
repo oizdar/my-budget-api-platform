@@ -25,6 +25,11 @@ use Symfony\Component\Validator\Constraints as Assert;
          */
         new GetCollection(
             'budgets/{budgetUuid}/transactions.{_format}',
+            uriVariables: ['budgetUuid' => [
+                'from_class' => BudgetUuid::class,
+                'property' => 'budgetUuid',
+                'description' => 'The UUID of the Budget for which to retrieve transactions',
+            ]],
             openapiContext: ['summary' => 'Get transactions of Given Budget'],
             paginationEnabled: true,
             provider: BudgetTransactionsCollectionProvider::class,
@@ -42,6 +47,7 @@ final class TransactionResource
         public ?TransactionUuid $transactionUuid = null,
 
         #[ApiProperty(readable: false, writable: false)]
+        #[Assert\NotNull(groups: ['create',])]
         public ?BudgetUuid $budgetUuid = null,
 
         #[Assert\NotNull(groups: ['create', 'Default'])]
@@ -57,7 +63,7 @@ final class TransactionResource
         #[Assert\NotNull(groups: ['create', 'Default'])]
         public ?Category $category = null,
 
-        #[ApiProperty(readable: true, writable: false)]
+        #[Assert\Length(min: 3, max: 150, groups: ['create'])]
         public ?string $comment = null,
     ) {
     }
@@ -66,7 +72,7 @@ final class TransactionResource
     {
         return new self(
             $transaction->getTransactionUuid(),
-            $transaction->getBudget()->getBudgetUuid(),
+            $transaction->getBudget()?->getBudgetUuid(),
             $transaction->getType(),
             $transaction->getDate()->format('Y-m-d H:i:s'),
             $transaction->getAmount(),
